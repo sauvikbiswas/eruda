@@ -1,0 +1,6 @@
+# End of sentence conditioning. '.' will be separated.
+([^ ])(\.|\?|!) *([A-Z]|$)
+\1 \2 \3
+# Mr. Mrs. Dr. conditioning for '.'
+ (Mr|Mrs|Dr) \.
+ \1.
