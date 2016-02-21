@@ -1,9 +1,15 @@
-# '.' conditioning.
-\.
- . 
+# '.' conditioning. Skips numbers (float representations)
+\.([^0-9])
+ . \1
 # End of sentence conditioning for non '.'.
-([^ ])(\?|!) *([A-Za-z]|$)
+([^ ])(\?|!|,) *([A-Za-z0-9]|$)
 \1 \2 \3
-# Mr. Mrs. Dr. conditioning for '.'
-# (Mr|Mrs|Dr) \.
-# \1.
+# - conditioning
+([A-za-z.])- *
+\1 - 
+# End of string conditioning
+([.!?])$
+ \1
+# End of string conditioning if no punctuation is present
+([^.!?])$
+\1 .

@@ -70,4 +70,4 @@ class parser(object):
 x = regexops('pre_tokenizer.regexp')
 pp(x.add_abbrev('abbreviation.list'))
 pp(x.subvector)
-pp(x.sub('Mr. and Mrs. Smith went to Washington with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file.'))
+pp(x.sub('Mr. and Mrs. Smith went to Washington with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file. 999-888-999 is a number, 55.980 is also a number, so is .999'))
