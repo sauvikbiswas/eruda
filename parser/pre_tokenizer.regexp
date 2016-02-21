@@ -1,6 +1,9 @@
-# End of sentence conditioning. '.' will be separated.
-([^ ])(\.|\?|!) *([A-Z]|$)
+# '.' conditioning.
+\.
+ . 
+# End of sentence conditioning for non '.'.
+([^ ])(\?|!) *([A-Za-z]|$)
 \1 \2 \3
 # Mr. Mrs. Dr. conditioning for '.'
- (Mr|Mrs|Dr) \.
- \1.
+# (Mr|Mrs|Dr) \.
+# \1.

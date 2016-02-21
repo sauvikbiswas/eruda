@@ -7,11 +7,11 @@ from pprint import pprint as pp
 
 class regexops(object):
 	
-	def __init__(self, filename):
+	def __init__(self, filename, abbrevfile = ''):
 		import re
 		self.subvector = []
-		fp = open(filename, 'rU')
-		data = fp.read().split('\n')
+		with open(filename, 'rU') as fp:
+			data = fp.read().split('\n')
 		findflag = False
 		findstr = ''
 		for line in data:
@@ -28,9 +28,22 @@ class regexops(object):
 	def sub(self, data):
 		for subre, findstr, replacestr in self.subvector:
 			data = subre.sub(replacestr, data)
+			print data
 		return data
 		
-
+	def add_abbrev(self, abbrevfile):
+		import re
+		with open(abbrevfile, 'rU') as fp:
+			data = fp.read().split('\n')
+		source = [re.sub('^ \. ', '.', re.sub('\.', ' *\. *', item)) \
+			for item in data \
+			if not item.startswith('#')]
+		data = [re.sub('\.$', '. ', item) for item in data \
+			if not item.startswith('#')]
+		self.subvector += [(re.compile(source[i]), source[i], item) \
+			for i, item in enumerate(data) \
+			if item.strip() != '']
+		
 
 class parser(object):
 	def __init__(self, filename=''):
@@ -55,6 +68,6 @@ class parser(object):
 		return
 
 x = regexops('pre_tokenizer.regexp')
+pp(x.add_abbrev('abbreviation.list'))
 pp(x.subvector)
-
-pp(x.sub('Mr. and Mrs. Smith went to Washington with their kids. Their kids got lost!'))
+pp(x.sub('Mr. and Mrs. Smith went to Washington with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file.'))
