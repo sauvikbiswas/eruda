@@ -9,6 +9,8 @@ class tokenizer(object):
 	
 	def __init__(self, filename = '', abbrevfile = ''):
 		self.subvector = []
+		self.prefuncvector = []
+		self.postfuncvector = []
 		if filename.strip() != '':
 			self.add_subvect(filename)
 		if abbrevfile.strip() != '':
@@ -32,12 +34,6 @@ class tokenizer(object):
 					findflag = True
 		return
 
-	def sub(self, data):
-		'''Runs the substitution vector on data'''
-		for subre, findstr, replacestr in self.subvector:
-			data = subre.sub(replacestr, data)
-		return data
-		
 	def add_abbrev(self, abbrevfile):
 		'''Computes the contraction of period and adds them to the substitution vector'''
 		import re
@@ -51,8 +47,18 @@ class tokenizer(object):
 		self.subvector += [(re.compile(source[i]), source[i], item) \
 			for i, item in enumerate(data) \
 			if item.strip() != '']
+		return
+	
+#	def add_function(self, funcfile, op_seq='pre'):
+	
+	def sub(self, data):
+		'''Runs the substitution vector on data'''
+		for subre, findstr, replacestr in self.subvector:
+			data = subre.sub(replacestr, data)
+		return data
+		
+#	def tokenize(self, data):
 		
 
-
 x = tokenizer('pre_tokenizer.regexp', 'abbreviation.list')
-pp(x.sub('Mr. and Mrs. Smith went to Washington with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file. 999-888-999 is a number, 55.980 is also a number, so is .999'))
+pp(x.sub('Mr. and Mrs. Smith went to San Francisco with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file. 999-888-999 is a number, 55.980 is also a number, so is .999. i is a variable.').split(' '))

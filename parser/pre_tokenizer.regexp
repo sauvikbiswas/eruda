@@ -13,3 +13,6 @@
 # End of string conditioning if no punctuation is present
 ([^.!?])$
 \1 .
+# San Francisco is one word. So are most 'San's
+San 
+San_
