@@ -95,9 +95,15 @@ class tokenizer(object):
 
 		for subre, findstr, replacestr in subvector:
 			if replacestr == self.FUNCTION:
-				data = subre(data)
+				if op_seq == self.PRE:
+					data = subre(data)
+				else:
+					data = [subre(item) for item in data]
 			else:
-				data = subre.sub(replacestr, data)
+				if op_seq == self.PRE:
+					data = subre.sub(replacestr, data)
+				else:
+					data = [subre.sub(replacestr, item) for item in data]
 		return data
 		
 	def tokenize(self, data):
