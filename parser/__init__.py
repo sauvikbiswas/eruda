@@ -1,5 +1,3 @@
-from pprint import pprint as pp
-
 class tokenizer(object):
 	
 	def __init__(self,):
@@ -25,7 +23,7 @@ class tokenizer(object):
 		for line in data:
 			if not line.startswith('#'):
 				if findflag:
-					if op_seq=='pre':
+					if op_seq == self.PRE or op_seq == 'pre':
 						self.presubvector.append((re.compile(findstr),\
 							findstr, line))
 					else:
@@ -53,7 +51,7 @@ class tokenizer(object):
 		subvector = [(re.compile(source[i]), source[i], item) \
 			for i, item in enumerate(data) \
 			if item.strip() != '']
-		if op_seq=='pre':
+		if op_seq == self.PRE or op_seq == 'pre':
 			self.presubvector += subvector
 		else:
 			self.postsubvector += subvector
@@ -64,11 +62,15 @@ class tokenizer(object):
 		Adds all L1 functions to the current object.
 		'''
 		import re
+		import os.path
+		import sys
 		fnre = re.compile('\ndef (.*)\(')
 		with open(funcfile, 'rU') as fp:
 			code = '\n'+fp.read()
 		funclist = fnre.findall(code)
-		funcmodule = re.sub('.pyc*$', '', funcfile)
+		funcpath, funcmodule = os.path.split(re.sub('.pyc*$', '', funcfile))
+		if funcpath != '':
+			sys.path.insert(0, funcpath)
 		fn = __import__(funcmodule, globals(), locals(), funclist, -1)
 		fndict = {funcmodule+'.'+funcname: getattr(fn, funcname) \
 			for funcname in funclist}
@@ -80,22 +82,22 @@ class tokenizer(object):
 			data = fp.read().split('\n')
 		fnsubvector = [(self.funcvector[item.strip()], item, self.FUNCTION)\
 			for item in data if item.strip() != '']
-		if op_seq=='pre':
+		if op.seq == self.PRE or op_seq == 'pre':
 			self.presubvector += fnsubvector
 		else:
 			self.postsubvector += fnsubvector
 		return
 
-	def sub(self, data, op_seq):
+	def sub(self, data, op_seq='pre'):
 		'''Runs the substitution vector on data'''
-		if op_seq == self.PRE:
+		if op_seq == self.PRE or op_seq == 'pre':
 			subvector = self.presubvector
 		else:
 			subvector = self.postsubvector
 
 		for subre, findstr, replacestr in subvector:
 			if replacestr == self.FUNCTION:
-				if op_seq == self.PRE:
+				if op_seq == self.PRE or op_seq == 'pre':
 					data = subre(data)
 				else:
 					data = [subre(item) for item in data]
@@ -110,10 +112,4 @@ class tokenizer(object):
 		return self.sub(self.sub(data, self.PRE).split(' '), self.POST)
 		
 
-x = tokenizer()
-x.add_subvect('pre_tokenizer.regexp')
-x.add_abbrev('abbreviation.list')
-x.add_function_repo('fnscanner.py')
-x.add_function('pre_functions.list')
-print x.funcvector
-pp(x.tokenize('Mr. and Mrs. Smith went to San Francisco with I.O.U. their kids. Their kids got lost! ken. mccoy filename.java is a file. 999-888-999 is a number, 55.980 is also a number, so is .999. i is a variable.'))
+

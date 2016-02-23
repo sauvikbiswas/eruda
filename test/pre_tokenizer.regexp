@@ -16,3 +16,6 @@
 # San Francisco is one word. So are most 'San's
 San 
 San_
+# n't transform
+([a-z])(n't)
+\1 \2
