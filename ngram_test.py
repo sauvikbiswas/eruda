@@ -2,6 +2,7 @@ from pprint import pprint as pp
 from corpus import ngram
 
 presubvector = [('r', 'test/pre_tokenizer.regexp'),
+				('r', 'test/pre_tokenizer_no_newline.regexp'),
 				('a', 'test/abbreviation.list')]
 postsubvector = [('f', 'test/post_functions.list')]
 funcrepolist = ['test/fnscanner.py']

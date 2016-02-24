@@ -132,17 +132,17 @@ class ngram(object):
 			'Entries			: '+str(len(self.histogram))
 
 		if histogram:
-			repr_str += '\nHistogram :\n'+'-'*80+'\n'+\
+			repr_str += '\nHistogram :\n'+'-'*40+'\n'+\
 				'\n'.join(sorted(['%s : %s' % \
 				(str(self.histogram[key]).zfill(5),key)\
 				for key in self.histogram]))
 		if probability:
-			repr_str += '\nProbability :\n'+'-'*80+'\n'+\
+			repr_str += '\nProbability :\n'+'-'*40+'\n'+\
 				'\n'.join(sorted(['%s : %s' % \
 				(str(self.probability[key]),key)\
 				for key in self.probability]))
 		if frequency:
-			repr_str += '\nFrequency :\n'+'-'*80+'\n'+\
+			repr_str += '\nFrequency :\n'+'-'*40+'\n'+\
 				'\n'.join(sorted(['%s : %s' % \
 				(str(self.frequency[key]).zfill(5),key)\
 				for key in self.frequency]))
