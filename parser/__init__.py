@@ -82,7 +82,7 @@ class tokenizer(object):
 			data = fp.read().split('\n')
 		fnsubvector = [(self.funcvector[item.strip()], item, self.FUNCTION)\
 			for item in data if item.strip() != '']
-		if op.seq == self.PRE or op_seq == 'pre':
+		if op_seq == self.PRE or op_seq == 'pre':
 			self.presubvector += fnsubvector
 		else:
 			self.postsubvector += fnsubvector
