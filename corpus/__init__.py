@@ -114,3 +114,25 @@ class ngram(object):
 		self.p_compute()
 		return
 
+	def summary(self, histogram=False, probability=False, frequency=False):
+		repr_str = 'Vocabulary size	: '+str(self.size)+'\n'+\
+			'Entries			: '+str(len(self.histogram))
+
+		if histogram:
+			repr_str += '\nHistogram :\n'+'-'*80+'\n'+\
+				'\n'.join(sorted(['%s : %s' % \
+				(str(self.histogram[key]).zfill(5),key)\
+				for key in self.histogram]))
+		if probability:
+			repr_str += '\nProbability :\n'+'-'*80+'\n'+\
+				'\n'.join(sorted(['%s : %s' % \
+				(str(self.probability[key]),key)\
+				for key in self.probability]))
+		if frequency:
+			repr_str += '\nFrequency :\n'+'-'*80+'\n'+\
+				'\n'.join(sorted(['%s : %s' % \
+				(str(self.frequency[key]).zfill(5),key)\
+				for key in self.frequency]))
+		
+		repr_str +='\n'
+		return repr_str
