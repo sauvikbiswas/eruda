@@ -58,12 +58,12 @@ class ngram(object):
 		return datanew
 
 	def hist_update(self, item):
-		if len(item) == 1:
-			self.size += 1
 		if item in self.histogram:
 			self.histogram[item] += 1
 		else:
 			self.histogram[item] = 1
+			if len(item) == 1:
+				self.size += 1
 		return
 
 	def p_compute(self):
