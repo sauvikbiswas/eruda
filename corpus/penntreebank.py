@@ -14,7 +14,9 @@
 
 # Custom POS class
 class pos(object):
-	def __init__(code, description):
+	def __init__(self, code, description):
+		self.symbol = code
+		self.description = description
 		return
 	
 	def __repr__(self):
@@ -24,6 +26,10 @@ class pos(object):
 		return self.__repr__()
 
 # Penn Treebank standard POS
+# Copyright, Mitchell P. Marcus, et al.
+# https://www.cis.upenn.edu/~treebank/
+# treebank@unagi.cis.upenn.edu
+  
 penntreebank = {
 	'CC': 'Coordinating conjunction',
 	'CD': 'Cardinal number',
@@ -60,10 +66,10 @@ penntreebank = {
 	'WDT': 'Wh-determiner',
 	'WP': 'Wh-pronoun',
 	'WP$': 'Possessive wh-pronoun',
-	'WRB': 'Wh-adverb'
+	'WRB': 'Wh-adverb',
 	}
 
-# Penn Treebank standard POS
+# Penn Treebank standard POS as pos objets
 CC = pos('CC', penntreebank['CC'])
 CD = pos('CD', penntreebank['CD'])
 DT = pos('DT', penntreebank['DT'])
@@ -100,3 +106,10 @@ WDT = pos('WDT', penntreebank['WDT'])
 WP = pos('WP', penntreebank['WP'])
 WP_ = pos('WP$', penntreebank['WP$'])
 WRB = pos('WRB', penntreebank['WRB'])
+
+# Other POS from Penn Treebank II POS
+STOP = pos('.', 'Punctuation mark, sentence closer')
+COMMA = pos(',', 'Punctuation mark, comma')
+COLON = pos(':', 'Punctuation mark, colon')
+LPAREN = pos('(', 'Contextual separator, left paren')
+RPAREN = pos('(', 'Contextual separator, left paren')
