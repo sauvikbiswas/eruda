@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Env imports
+import re
+import os.path
+import sys
+
 class tokenizer(object):
 	
 	def __init__(self,):
@@ -28,7 +34,6 @@ class tokenizer(object):
 
 	def add_subvect(self, filename, op_seq='pre'):
 		'''Reads an list of substitution vectors'''
-		import re
 		with open(filename, 'rU') as fp:
 			data = fp.read().split('\n')
 		findflag = False
@@ -53,7 +58,6 @@ class tokenizer(object):
 		Computes the contraction of period and adds them to the 
 		substitution vector
 		'''
-		import re
 		with open(abbrevfile, 'rU') as fp:
 			data = fp.read().split('\n')
 		source = [re.sub('^ \. ', '.', re.sub('\.', ' *\. *', item)) \
@@ -74,9 +78,6 @@ class tokenizer(object):
 		'''
 		Adds all L1 functions to the current object.
 		'''
-		import re
-		import os.path
-		import sys
 		fnre = re.compile('\ndef (.*)\(')
 		with open(funcfile, 'rU') as fp:
 			code = '\n'+fp.read()

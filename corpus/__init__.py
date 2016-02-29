@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Env imports
+from math import log10
+import re
+
+# Self imports
+from parser import tokenizer
+
 class ngram(object):
 	def __init__(self, filename=''):
 		self.histogram = {}		# Histogram data of the corpus
@@ -26,7 +33,6 @@ class ngram(object):
 		This initiates a set of substitution vectors for the corpus to be
 		digested.
 		'''
-		from parser import tokenizer
 		tokobj = tokenizer()
 		for funcrepo in funcrepolist: tokobj.add_function_repo(funcrepo)
 		for vector in (presubvector, postsubvector):
@@ -48,7 +54,6 @@ class ngram(object):
 		a list of list of strings. Each sentence is represented as
 		a list of strings.
 		'''
-		import re
 		eos = re.compile('^[\.?!]$')
 		# We don't need '' for ngram analysis
 		data = [item for item in data if item != '']
@@ -87,7 +92,6 @@ class ngram(object):
 		In case of an unigram, it computes the count(unigram) / N-corpus
 		Stores the log10 of p
 		'''
-		from math import log10
 		h = self.histogram
 		for item in h:
 			if len(item) > 1:
