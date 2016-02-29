@@ -13,61 +13,64 @@
 # limitations under the License.
 
 # Custom POS class
+
+
 class pos(object):
-	def __init__(self, code, description):
-		self.symbol = code
-		self.description = description
-		return
-	
-	def __repr__(self):
-		return self.symbol
-	
-	def __str__(self):
-		return self.__repr__()
+
+    def __init__(self, code, description):
+        self.symbol = code
+        self.description = description
+        return
+
+    def __repr__(self):
+        return self.symbol
+
+    def __str__(self):
+        return self.__repr__()
 
 # Penn Treebank standard POS
 # Copyright, Mitchell P. Marcus, et al.
 # https://www.cis.upenn.edu/~treebank/
 # treebank@unagi.cis.upenn.edu
-  
+
 penntreebank = {
-	'CC': 'Coordinating conjunction',
-	'CD': 'Cardinal number',
-	'DT': 'Determiner',
-	'EX': 'Existential there',
-	'FW': 'Foreign word',
-	'IN': 'Preposition or subordinating conjunction',
-	'JJ': 'Adjective',
-	'JJR': 'Adjective, comparative',
-	'JJS': 'Adjective, superlative',
-	'LS': 'List item marker',
-	'MD': 'Modal',
-	'NN': 'Noun, singular or mass',
-	'NNS': 'Noun, plural',
-	'NNP': 'Proper noun, singular',
-	'NNPS': 'Proper noun, plural',
-	'PDT': 'Predeterminer',
-	'POS': 'Possessive ending',
-	'PRP': 'Personal pronoun',
-	'PRP$': 'Possessive pronoun',
-	'RB': 'Adverb',
-	'RBR': 'Adverb, comparative',
-	'RBS': 'Adverb, superlative',
-	'RP': 'Particle',
-	'SYM': 'Symbol',
-	'TO': 'to',
-	'UH': 'Interjection',
-	'VB': 'Verb, base form',
-	'VBD': 'Verb, past tense',
-	'VBG': 'Verb, gerund or present participle',
-	'VBN': 'Verb, past participle',
-	'VBP': 'Verb, non-3rd person singular present',
-	'VBZ': 'Verb, 3rd person singular present',
-	'WDT': 'Wh-determiner',
-	'WP': 'Wh-pronoun',
-	'WP$': 'Possessive wh-pronoun',
-	'WRB': 'Wh-adverb',
-	}
+    'CC': 'Coordinating conjunction',
+    'CD': 'Cardinal number',
+    'DT': 'Determiner',
+    'EX': 'Existential there',
+    'FW': 'Foreign word',
+    'IN': 'Preposition or subordinating conjunction',
+    'JJ': 'Adjective',
+    'JJR': 'Adjective, comparative',
+    'JJS': 'Adjective, superlative',
+    'LS': 'List item marker',
+    'MD': 'Modal',
+    'NN': 'Noun, singular or mass',
+    'NNS': 'Noun, plural',
+    'NNP': 'Proper noun, singular',
+    'NNPS': 'Proper noun, plural',
+    'PDT': 'Predeterminer',
+    'POS': 'Possessive ending',
+    'PRP': 'Personal pronoun',
+    'PRP$': 'Possessive pronoun',
+    'RB': 'Adverb',
+    'RBR': 'Adverb, comparative',
+    'RBS': 'Adverb, superlative',
+    'RP': 'Particle',
+    'SYM': 'Symbol',
+    'TO': 'to',
+    'UH': 'Interjection',
+    'VB': 'Verb, base form',
+    'VBD': 'Verb, past tense',
+    'VBG': 'Verb, gerund or present participle',
+    'VBN': 'Verb, past participle',
+    'VBP': 'Verb, non-3rd person singular present',
+    'VBZ': 'Verb, 3rd person singular present',
+    'WDT': 'Wh-determiner',
+    'WP': 'Wh-pronoun',
+    'WP$': 'Possessive wh-pronoun',
+    'WRB': 'Wh-adverb',
+}
 
 # Penn Treebank standard POS as pos objets
 CC = pos('CC', penntreebank['CC'])
