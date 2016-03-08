@@ -1,3 +1,6 @@
+#Newline
+\n
+ 
 # '.' conditioning. Skips numbers (float representations)
 \.([^0-9])
  . \1
