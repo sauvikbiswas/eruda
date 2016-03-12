@@ -33,7 +33,7 @@ class tokenizer(object):
 
         return
 
-    def add_subvect(self, filename, op_seq='pre'):
+    def add_regex(self, filename, op_seq='pre'):
         '''Reads an list of substitution vectors'''
         with open(filename, 'rU') as fp:
             data = fp.read().split('\n')

@@ -45,7 +45,7 @@ class ngram(object):
                 loc = 'post'
             for vecttype, vectfile in vector:
                 if vecttype.lower() == 'r':
-                    tokobj.add_subvect(vectfile, op_seq=loc)
+                    tokobj.add_regex(vectfile, op_seq=loc)
                 elif vecttype.lower() == 'f':
                     tokobj.add_function(vectfile, op_seq=loc)
                 else:

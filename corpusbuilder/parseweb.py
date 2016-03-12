@@ -55,6 +55,7 @@ def _extract_pseg_lemma(souplist):
         data = [item for item in soup(lambda x: not x.has_attr('class'), recursive=False)]
         if len(data) > 1:
             print data
+            
             for item in data:
                 print item.name
                 print item.text.replace(u'\xb7','').replace(u'\u2032', '')
