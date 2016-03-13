@@ -75,7 +75,7 @@ class tokenizer(object):
             self.postsubvector += subvector
         return
 
-    def add_function_repo(self, funcfile):
+    def add_function_repo(self, funcfile, test=False):
         '''
         Adds all L1 functions to the current object.
         '''
@@ -87,8 +87,13 @@ class tokenizer(object):
         if funcpath != '':
             sys.path.insert(0, funcpath)
         fn = __import__(funcmodule, globals(), locals(), funclist, -1)
+        if test:
+            testfn = lambda x: ((x.func_code.co_argcount == 1)
+                                and (type('inp') == type(x('inp'))))
+        else:
+            testfn = lambda x: (x.func_code.co_argcount == 1)
         fndict = {funcmodule + '.' + funcname: getattr(fn, funcname)
-                  for funcname in funclist}
+                  for funcname in funclist if testfn(getattr(fn, funcname))}
         self.funcvector.update(fndict)
         return
 
