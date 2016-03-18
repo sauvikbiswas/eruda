@@ -77,7 +77,8 @@ class PSG(object):
         return
 
     def CNF_unary_expansion(self):
-        removal_list = [entry for entry in self.grammar if len(entry[1]) == 1]
+        removal_list = [entry for entry in self.grammar
+                        if len(entry[1]) == 1]
         if len(removal_list) == 0:
             return
         add_entries = {}
@@ -160,8 +161,10 @@ lexicon = [('N', 'people'),
 # pp(grammar)
 psg = PSG(grammar, lexicon)
 psg.CNF_epsilon_removal()
-pp(psg.grammar)
+# pp(psg.grammar)
 psg.CNF_unary_expansion()
+pp(psg.grammar)
+pp(psg.lexicon)
 psg.CNF_remove_redundant()
 pp(psg.grammar)
 pp(psg.lexicon)
