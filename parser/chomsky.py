@@ -63,6 +63,8 @@ def _epsilon_removal(grammer):
 
 
 def _append_lexicon(lexicon, unary_entry):
+    # Lexicon augmentation with a unary entry where a non-terminal def.
+    # becomes a terminal def.
     symbol, definition = unary_entry
     add_entries = {}
     for i, (symtype, lex) in enumerate(lexicon):
@@ -106,6 +108,25 @@ def _remove_redundant(lexicon, grammer):
     return [entry for entry in lexicon if entry[0] in terminals]
 
 
+def _remove_higher_order(grammer):
+    # Binarization of grammer
+    add_entries = {}
+    found = False
+    for i, (symbol, definition) in enumerate(grammer):
+        if len(definition) > 2:
+            found = True
+            new_sym = '@' + symbol + '_' + definition[0]
+            add_entries[i] = (new_sym, definition[1:])
+            grammer[i] = (symbol, (definition[0], new_sym))
+    grammer = _index_inject(grammer, add_entries)
+    # If there was a split, there is a possibility that the split might
+    # have still retained higher order grammers for cases where length
+    # of definition was greater than 3)
+    if found:
+        return _remove_higher_order(grammer)
+    else:
+        return grammer
+
 from pprint import pprint as pp
 # pp(grammer)
 grammer = _epsilon_removal(grammer)
@@ -117,4 +138,6 @@ lexicon = _remove_redundant(lexicon, grammer)
 #grammer, lexicon = _unary_expansion(grammer, lexicon)
 pp(grammer)
 pp(lexicon)
+grammer = _remove_higher_order(grammer)
+pp(grammer)
 # print lexicon
