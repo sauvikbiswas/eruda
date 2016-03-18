@@ -13,3 +13,4 @@
 # limitations under the License.
 
 from .tokenizer import tokenizer
+from .cfg import PSG

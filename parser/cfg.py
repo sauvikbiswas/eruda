@@ -57,7 +57,7 @@ class PSG(object):
         grammar_new = [entry for entry in self.grammar if entry[1] != ()]
         add_entries = {}
         for replace, empty in removal_list:
-            for i, (symbol, definition) in enumerate(grammar):
+            for i, (symbol, definition) in enumerate(self.grammar):
                 new_definition = _remove_tuple_item(definition, replace)
                 if new_definition != definition and new_definition != ():
                     add_entries[i] = (symbol, new_definition)
@@ -108,7 +108,8 @@ class PSG(object):
         # resolved by the grammar. Such entries can be deleted.
         terminals = reduce(lambda x, y: list(x) + list(y),
                            [symbol for empty, symbol in self.grammar])
-        self.lexicon = [entry for entry in lexicon if entry[0] in terminals]
+        self.lexicon = [
+            entry for entry in self.lexicon if entry[0] in terminals]
         return
 
     def CNF_remove_higher_order(self):
@@ -137,37 +138,3 @@ class PSG(object):
         self.CNF_remove_redundant()
         self.CNF_remove_higher_order()
         return
-
-
-from pprint import pprint as pp
-grammar = [('S', ('NP', 'VP')),
-           ('VP', ('V', 'NP')),
-           ('VP', ('V', 'NP', 'PP')),
-           ('NP', ('NP', 'NP')),
-           ('NP', ('NP', 'PP')),
-           ('NP', ('N',)),
-           ('NP', ()),
-           ('PP', ('P', 'NP'))]
-
-lexicon = [('N', 'people'),
-           ('N', 'fish'),
-           ('N', 'tanks'),
-           ('N', 'rods'),
-           ('V', 'people'),
-           ('V', 'fish'),
-           ('V', 'tanks'),
-           ('P', 'with')]
-
-# pp(grammar)
-psg = PSG(grammar, lexicon)
-psg.CNF_epsilon_removal()
-# pp(psg.grammar)
-psg.CNF_unary_expansion()
-pp(psg.grammar)
-pp(psg.lexicon)
-psg.CNF_remove_redundant()
-pp(psg.grammar)
-pp(psg.lexicon)
-psg.CNF_remove_higher_order()
-pp(psg.grammar)
-# print lexicon
